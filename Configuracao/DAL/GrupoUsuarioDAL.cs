@@ -1,6 +1,7 @@
 ﻿using Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace DAL
 {
@@ -8,7 +9,7 @@ namespace DAL
     {
         public void Inserir(GrupoUsuario _grupoUsuario)
         {
-
+            
         }
         public List<GrupoUsuario> BuscarTodos()
         {
