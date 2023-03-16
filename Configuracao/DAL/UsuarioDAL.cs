@@ -108,7 +108,6 @@ namespace DAL
             }
             catch (Exception ex)
             {
-
                 throw new Exception("ocorreu um erro ao tentar buscar id do usuário do banco de dados", ex);
             }
             finally
@@ -233,10 +232,38 @@ namespace DAL
                 cn.Close();
             }
         }
-
         public void Alterar(Usuario _usuario)
         {
+            SqlConnection cn = new SqlConnection(Conexao.StringDeConexao);
+            try
+            {
+                SqlCommand cmd = cn.CreateCommand();
+                cmd.CommandText = @"UPDATE Usuario SET Nome = @Nome, NomeUsuario = @NomeUsuario, 
+                                    Email = @Email, CPF = @CPF, Ativo = @Ativo, Senha = @Senha 
+                                    WHERE Id = @Id";
+                cmd.CommandType = System.Data.CommandType.Text;
 
+                cmd.Parameters.AddWithValue("@Nome", _usuario.Nome);
+                cmd.Parameters.AddWithValue("@NomeUsuario", _usuario.NomeUsuario);
+                cmd.Parameters.AddWithValue("@Email", _usuario.Email);
+                cmd.Parameters.AddWithValue("@CPF", _usuario.CPF);
+                cmd.Parameters.AddWithValue("@Ativo", _usuario.Ativo);
+                cmd.Parameters.AddWithValue("@Senha", _usuario.Senha);
+                cmd.Parameters.AddWithValue("@Id", _usuario.Id);
+
+                cmd.Connection = cn;
+                cn.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu erro ao tentar alterar um usuário no banco de dados.", ex);
+            }
+            finally
+            {
+                cn.Close();
+            }
         }
         public void Excluir(int _id)
         {
@@ -263,5 +290,7 @@ namespace DAL
                 cn.Close();
             }
         }
+   
+    
     }
 }
