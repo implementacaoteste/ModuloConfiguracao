@@ -17,7 +17,6 @@ namespace WindowsFormsAppPrincipal
         public FormPrincipal()
         {
             InitializeComponent();
-            
         }
 
         private void usuáriosToolStripMenuItem_Click(object sender, EventArgs e)
