@@ -1,5 +1,4 @@
 ﻿using BLL;
-using Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,20 +11,16 @@ using System.Windows.Forms;
 
 namespace WindowsFormsAppPrincipal
 {
-    public partial class FormPrincipal : Form
+    public partial class FormBuscarUsuario : Form
     {
-        public FormPrincipal()
+        public FormBuscarUsuario()
         {
             InitializeComponent();
-            
         }
 
-        private void usuáriosToolStripMenuItem_Click(object sender, EventArgs e)
+        private void buttonBuscar_Click(object sender, EventArgs e)
         {
-            using (FormBuscarUsuario frm = new FormBuscarUsuario())
-            {
-                frm.ShowDialog();
-            }
+            usuarioBindingSource.DataSource = new UsuarioBLL().BuscarTodos();
         }
     }
 }
