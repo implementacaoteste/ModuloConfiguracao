@@ -191,6 +191,7 @@
             this.buttonAlterar.TabIndex = 4;
             this.buttonAlterar.Text = "Alterar";
             this.buttonAlterar.UseVisualStyleBackColor = true;
+            this.buttonAlterar.Click += new System.EventHandler(this.buttonAlterar_Click);
             // 
             // buttonAdicionarUsuario
             // 
@@ -200,6 +201,7 @@
             this.buttonAdicionarUsuario.TabIndex = 4;
             this.buttonAdicionarUsuario.Text = "Adicionar";
             this.buttonAdicionarUsuario.UseVisualStyleBackColor = true;
+            this.buttonAdicionarUsuario.Click += new System.EventHandler(this.buttonAdicionarUsuario_Click);
             // 
             // buttonExcluirUsuario
             // 
