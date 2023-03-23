@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 
 namespace DAL
 {
@@ -185,6 +186,45 @@ namespace DAL
             catch (Exception ex)
             {
                 throw new Exception("Ocorreu erro ao tentar excluir um grupo de usuário no banco de dados.", ex);
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+
+        public List<GrupoUsuario> BuscarPorIdUsuario(int _idUsuario)
+        {
+            List<GrupoUsuario> grupoUsuarios = new List<GrupoUsuario>();
+            GrupoUsuario grupoUsuario;
+
+            SqlConnection cn = new SqlConnection(Conexao.StringDeConexao);
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cn;
+                cmd.CommandText = @"SELECT GrupoUsuario.Id, GrupoUsuario.NomeGrupo FROM GrupoUsuario
+                                    INNER JOIN UsuarioGrupoUsuario ON GrupoUsuario.Id = UsuarioGrupoUsuario.IdGrupoUsuario
+                                    WHERE UsuarioGrupoUsuario.IdUsuario = @IdUsuario";
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.AddWithValue("@IdUsuario", _idUsuario);
+                cn.Open();
+
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        grupoUsuario = new GrupoUsuario();
+                        grupoUsuario.Id = Convert.ToInt32(rd["Id"]);
+                        grupoUsuario.NomeGrupo = rd["NomeGrupo"].ToString();
+                        grupoUsuarios.Add(grupoUsuario);
+                    }
+                }
+                return grupoUsuarios;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu um erro ao tentar buscar grupos de usuários por Id do usuário no banco de dados.", ex);
             }
             finally
             {

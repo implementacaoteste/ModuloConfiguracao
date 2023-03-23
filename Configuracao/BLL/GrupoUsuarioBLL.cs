@@ -9,6 +9,7 @@ namespace BLL
     {
         public void Inserir(GrupoUsuario _grupoUsuario)
         {
+            new UsuarioBLL().ValidarPermissao(6);
             new GrupoUsuarioDAL().Inserir(_grupoUsuario);
         }
         public List<GrupoUsuario> BuscarTodos()

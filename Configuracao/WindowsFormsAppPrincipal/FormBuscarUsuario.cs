@@ -14,7 +14,14 @@ namespace WindowsFormsAppPrincipal
 
         private void buttonBuscar_Click(object sender, EventArgs e)
         {
-            usuarioBindingSource.DataSource = new UsuarioBLL().BuscarTodos();
+            try
+            {
+                usuarioBindingSource.DataSource = new UsuarioBLL().BuscarTodos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void buttonExcluirUsuario_Click(object sender, EventArgs e)
@@ -48,12 +55,49 @@ namespace WindowsFormsAppPrincipal
         private void buttonAlterar_Click(object sender, EventArgs e)
         {
             int id = ((Usuario)usuarioBindingSource.Current).Id;
-            
+
             using (FormCadastroUsuario frm = new FormCadastroUsuario(id))
             {
                 frm.ShowDialog();
             }
             buttonBuscar_Click(null, null);
+        }
+
+        private void buttonAdicionarGrupoUsuario_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (FormConsultaGrupoUsuario frm = new FormConsultaGrupoUsuario())
+                {
+                    frm.ShowDialog();
+
+                    if (frm.Id != 0)
+                    {
+                        int idUsuario = ((Usuario)usuarioBindingSource.Current).Id;
+                        new UsuarioBLL().AdicionarGrupoUsuario(idUsuario, frm.Id);
+                    }
+                }
+                buttonBuscar_Click(null, null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonExcluirGrupoUsuario_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int idGrupoUsuario = ((GrupoUsuario)grupoUsuariosBindingSource.Current).Id;
+                int idUsuario = ((Usuario)usuarioBindingSource.Current).Id;
+                new UsuarioBLL().RemoverGrupoUsuario(idUsuario, idGrupoUsuario);
+                grupoUsuariosBindingSource.RemoveCurrent();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

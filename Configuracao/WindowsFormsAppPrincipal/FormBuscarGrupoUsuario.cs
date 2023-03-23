@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,19 @@ namespace WindowsFormsAppPrincipal
         public FormBuscarGrupoUsuario()
         {
             InitializeComponent();
+        }
+
+        private void buttonBuscar_Click(object sender, EventArgs e)
+        {
+            grupoUsuarioBindingSource.DataSource = new GrupoUsuarioBLL().BuscarTodos();
+        }
+
+        private void buttonAdicionarGrupoUsuario_Click(object sender, EventArgs e)
+        {
+            using (FormCadastroGrupoUsuario frm = new FormCadastroGrupoUsuario())
+            {
+                frm.ShowDialog();
+            }
         }
     }
 }

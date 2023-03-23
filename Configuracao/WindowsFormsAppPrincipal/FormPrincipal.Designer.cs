@@ -60,20 +60,20 @@
             // usuáriosToolStripMenuItem
             // 
             this.usuáriosToolStripMenuItem.Name = "usuáriosToolStripMenuItem";
-            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
             this.usuáriosToolStripMenuItem.Text = "Usuários";
             this.usuáriosToolStripMenuItem.Click += new System.EventHandler(this.usuáriosToolStripMenuItem_Click);
             // 
             // gruposDeUsuáriosToolStripMenuItem
             // 
             this.gruposDeUsuáriosToolStripMenuItem.Name = "gruposDeUsuáriosToolStripMenuItem";
-            this.gruposDeUsuáriosToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.gruposDeUsuáriosToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
             this.gruposDeUsuáriosToolStripMenuItem.Text = "Grupos de usuários";
             // 
             // permissõesToolStripMenuItem
             // 
             this.permissõesToolStripMenuItem.Name = "permissõesToolStripMenuItem";
-            this.permissõesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.permissõesToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
             this.permissõesToolStripMenuItem.Text = "Permissões";
             // 
             // FormPrincipal
@@ -86,6 +86,7 @@
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Módulo configuração";
+            this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
