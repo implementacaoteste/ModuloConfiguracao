@@ -13,9 +13,16 @@ namespace WindowsFormsAppPrincipal
 
         private void usuáriosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (FormBuscarUsuario frm = new FormBuscarUsuario())
+            try
             {
-                frm.ShowDialog();
+                using (FormBuscarUsuario frm = new FormBuscarUsuario())
+                {
+                    frm.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 

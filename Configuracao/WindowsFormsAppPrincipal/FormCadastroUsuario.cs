@@ -33,20 +33,37 @@ namespace WindowsFormsAppPrincipal
             }
             catch (Exception ex)
             {
+                if (new TratarErro().GetId(ex) == 1)
+                    senhaTextBox.Focus();
+
                 MessageBox.Show(ex.Message);
             }
         }
         private void FormCadastroUsuario_Load(object sender, EventArgs e)
         {
-            if (Id == 0)
-                usuarioBindingSource.AddNew();
-            else
-                usuarioBindingSource.DataSource = new UsuarioBLL().BuscarPorId(Id);
+            try
+            {
+                if (Id == 0)
+                    usuarioBindingSource.AddNew();
+                else
+                    usuarioBindingSource.DataSource = new UsuarioBLL().BuscarPorId(Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void buttonCancelar_Click(object sender, EventArgs e)
         {
-            Close();
+            try
+            {
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

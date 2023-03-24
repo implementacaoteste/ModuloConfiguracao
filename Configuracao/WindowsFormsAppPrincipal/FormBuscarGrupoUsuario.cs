@@ -20,14 +20,28 @@ namespace WindowsFormsAppPrincipal
 
         private void buttonBuscar_Click(object sender, EventArgs e)
         {
-            grupoUsuarioBindingSource.DataSource = new GrupoUsuarioBLL().BuscarTodos();
+            try
+            {
+                grupoUsuarioBindingSource.DataSource = new GrupoUsuarioBLL().BuscarTodos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void buttonAdicionarGrupoUsuario_Click(object sender, EventArgs e)
         {
-            using (FormCadastroGrupoUsuario frm = new FormCadastroGrupoUsuario())
+            try
             {
-                frm.ShowDialog();
+                using (FormCadastroGrupoUsuario frm = new FormCadastroGrupoUsuario())
+                {
+                    frm.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

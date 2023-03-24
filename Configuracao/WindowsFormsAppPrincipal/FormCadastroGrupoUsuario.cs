@@ -23,10 +23,17 @@ namespace WindowsFormsAppPrincipal
 
         private void FormCadastroGrupoUsuario_Load(object sender, EventArgs e)
         {
-            if (Id == 0)
-                new GrupoUsuarioBLL().Inserir((GrupoUsuario)grupoUsuarioBindingSource.Current);
-            else
-                new GrupoUsuarioBLL().Alterar((GrupoUsuario)grupoUsuarioBindingSource.Current);
+            try
+            {
+                if (Id == 0)
+                    new GrupoUsuarioBLL().Inserir((GrupoUsuario)grupoUsuarioBindingSource.Current);
+                else
+                    new GrupoUsuarioBLL().Alterar((GrupoUsuario)grupoUsuarioBindingSource.Current);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
     }

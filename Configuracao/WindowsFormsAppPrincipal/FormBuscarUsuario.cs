@@ -26,21 +26,28 @@ namespace WindowsFormsAppPrincipal
 
         private void buttonExcluirUsuario_Click(object sender, EventArgs e)
         {
-            if (usuarioBindingSource.Count <= 0)
+            try
             {
-                MessageBox.Show("Não existe registro para ser excluído.");
-                return;
+                if (usuarioBindingSource.Count <= 0)
+                {
+                    MessageBox.Show("Não existe registro para ser excluído.");
+                    return;
+                }
+
+                if (MessageBox.Show("Deseja realmente excluir este registro?",
+                    "Atenção", MessageBoxButtons.YesNo) == DialogResult.No)
+                    return;
+
+                int id = ((Usuario)usuarioBindingSource.Current).Id;
+                new UsuarioBLL().Excluir(id);
+                usuarioBindingSource.RemoveCurrent();
+
+                MessageBox.Show("Registro excluído com sucesso!");
             }
-
-            if (MessageBox.Show("Deseja realmente excluir este registro?",
-                "Atenção", MessageBoxButtons.YesNo) == DialogResult.No)
-                return;
-
-            int id = ((Usuario)usuarioBindingSource.Current).Id;
-            new UsuarioBLL().Excluir(id);
-            usuarioBindingSource.RemoveCurrent();
-
-            MessageBox.Show("Registro excluído com sucesso!");
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void buttonAdicionarUsuario_Click(object sender, EventArgs e)
@@ -54,14 +61,23 @@ namespace WindowsFormsAppPrincipal
 
         private void buttonAlterar_Click(object sender, EventArgs e)
         {
-            int id = ((Usuario)usuarioBindingSource.Current).Id;
-
-            using (FormCadastroUsuario frm = new FormCadastroUsuario(id))
+            try
             {
-                frm.ShowDialog();
+                int id = ((Usuario)usuarioBindingSource.Current).Id;
+
+                using (FormCadastroUsuario frm = new FormCadastroUsuario(id))
+                {
+                    frm.ShowDialog();
+                }
+                buttonBuscar_Click(null, null);
             }
-            buttonBuscar_Click(null, null);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+
+
 
         private void buttonAdicionarGrupoUsuario_Click(object sender, EventArgs e)
         {
