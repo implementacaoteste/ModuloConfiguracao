@@ -60,20 +60,21 @@
             // usuáriosToolStripMenuItem
             // 
             this.usuáriosToolStripMenuItem.Name = "usuáriosToolStripMenuItem";
-            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
+            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.usuáriosToolStripMenuItem.Text = "Usuários";
             this.usuáriosToolStripMenuItem.Click += new System.EventHandler(this.usuáriosToolStripMenuItem_Click);
             // 
             // gruposDeUsuáriosToolStripMenuItem
             // 
             this.gruposDeUsuáriosToolStripMenuItem.Name = "gruposDeUsuáriosToolStripMenuItem";
-            this.gruposDeUsuáriosToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
+            this.gruposDeUsuáriosToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.gruposDeUsuáriosToolStripMenuItem.Text = "Grupos de usuários";
+            this.gruposDeUsuáriosToolStripMenuItem.Click += new System.EventHandler(this.gruposDeUsuáriosToolStripMenuItem_Click);
             // 
             // permissõesToolStripMenuItem
             // 
             this.permissõesToolStripMenuItem.Name = "permissõesToolStripMenuItem";
-            this.permissõesToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
+            this.permissõesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.permissõesToolStripMenuItem.Text = "Permissões";
             // 
             // FormPrincipal

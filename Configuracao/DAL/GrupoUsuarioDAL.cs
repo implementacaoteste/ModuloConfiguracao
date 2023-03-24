@@ -91,6 +91,7 @@ namespace DAL
                         grupoUsuario = new GrupoUsuario();
                         grupoUsuario.Id = Convert.ToInt32(rd["Id"]);
                         grupoUsuario.NomeGrupo = rd["NomeGrupo"].ToString();
+                        grupoUsuario.Permissoes = new PermissaoDAL().BuscarPorIdGrupo(grupoUsuario.Id);
                         grupoUsuarios.Add(grupoUsuario);
                     }
                 }
@@ -192,7 +193,6 @@ namespace DAL
                 cn.Close();
             }
         }
-
         public List<GrupoUsuario> BuscarPorIdUsuario(int _idUsuario)
         {
             List<GrupoUsuario> grupoUsuarios = new List<GrupoUsuario>();
@@ -225,6 +225,88 @@ namespace DAL
             catch (Exception ex)
             {
                 throw new Exception("Ocorreu um erro ao tentar buscar grupos de usuários por Id do usuário no banco de dados.", ex);
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+        public bool PermissaoVinculada(int _idGrupo, int _idPermissao)
+        {
+            SqlConnection cn = new SqlConnection(Conexao.StringDeConexao);
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cn;
+                cmd.CommandText = @"SELECT 1 FROM PermissaoGrupoUsuario 
+                                    WHERE IdGrupoUsuario = @IdGrupoUsuario AND IdPermissao = @IdPermissao";
+
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.AddWithValue("@IdGrupoUsuario", _idGrupo);
+                cmd.Parameters.AddWithValue("@IdPermissao", _idPermissao);
+                cn.Open();
+
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    return rd.Read();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu um erro ao tentar verificar vinculo entre permissão e grupo de usuário no banco de dados.", ex);
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+        public void AdicionarPermissao(int _idGrupo, int _idPermissao)
+        {
+            SqlConnection cn = new SqlConnection(Conexao.StringDeConexao);
+            try
+            {
+                SqlCommand cmd = cn.CreateCommand();
+                cmd.CommandText = "INSERT INTO PermissaoGrupoUsuario(IdGrupoUsuario, IdPermissao) VALUES(@IdGrupoUsuario, @IdPermissao)";
+                cmd.CommandType = System.Data.CommandType.Text;
+
+                cmd.Parameters.AddWithValue("@IdGrupoUsuario", _idGrupo);
+                cmd.Parameters.AddWithValue("@IdPermissao", _idPermissao);
+
+                cmd.Connection = cn;
+                cn.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu erro ao tentar inserir permissão um grupo de usuário no banco de dados.", ex);
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+        public void RemoverPermissao(int _idGrupo, int _idPermissao)
+        {
+            SqlConnection cn = new SqlConnection(Conexao.StringDeConexao);
+            try
+            {
+                SqlCommand cmd = cn.CreateCommand();
+                cmd.CommandText = @"DELETE FROM PermissaoGrupoUsuario 
+                                    WHERE IdGrupoUsuario = @IdGrupoUsuario AND IdPermissao = @IdPermissao";
+
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.AddWithValue("@IdGrupoUsuario", _idGrupo);
+                cmd.Parameters.AddWithValue("@IdPermissao", _idPermissao);
+
+                cmd.Connection = cn;
+                cn.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu erro ao tentar excluir a permissão de um grupo de usuário no banco de dados.", ex);
             }
             finally
             {

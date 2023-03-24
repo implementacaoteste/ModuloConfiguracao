@@ -19,13 +19,12 @@ namespace WindowsFormsAppPrincipal
         {
             try
             {
-                UsuarioBLL usuarioBLL = new UsuarioBLL();
                 usuarioBindingSource.EndEdit();
 
                 if (Id == 0)
-                    usuarioBLL.Inserir((Usuario)usuarioBindingSource.Current, textBoxConfirmarSenha.Text);
+                    new UsuarioBLL().Inserir((Usuario)usuarioBindingSource.Current, textBoxConfirmarSenha.Text);
                 else
-                    usuarioBLL.Alterar((Usuario)usuarioBindingSource.Current, textBoxConfirmarSenha.Text);
+                    new UsuarioBLL().Alterar((Usuario)usuarioBindingSource.Current, textBoxConfirmarSenha.Text);
 
                 MessageBox.Show("Registro salvo com sucesso!");
                 Close();

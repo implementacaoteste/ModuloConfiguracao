@@ -26,9 +26,7 @@ namespace WindowsFormsAppPrincipal
             try
             {
                 if (Id == 0)
-                    new GrupoUsuarioBLL().Inserir((GrupoUsuario)grupoUsuarioBindingSource.Current);
-                else
-                    new GrupoUsuarioBLL().Alterar((GrupoUsuario)grupoUsuarioBindingSource.Current);
+                    grupoUsuarioBindingSource.AddNew();
             }
             catch (Exception ex)
             {
@@ -36,5 +34,23 @@ namespace WindowsFormsAppPrincipal
             }
         }
 
+        private void buttonSalvar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                grupoUsuarioBindingSource.EndEdit();
+                if (Id == 0)
+                    new GrupoUsuarioBLL().Inserir((GrupoUsuario)grupoUsuarioBindingSource.Current);
+                else
+                    new GrupoUsuarioBLL().Alterar((GrupoUsuario)grupoUsuarioBindingSource.Current);
+
+                MessageBox.Show("Registro salvo com sucesso!");
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

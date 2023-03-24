@@ -30,5 +30,20 @@ namespace WindowsFormsAppPrincipal
         {
             Constantes.IdUsuarioLogado = 14;
         }
+
+        private void gruposDeUsuáriosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (FormBuscarGrupoUsuario frm = new FormBuscarGrupoUsuario())
+                {
+                    frm.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
